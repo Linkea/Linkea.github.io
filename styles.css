@@ -1,0 +1,39 @@
+/* 基础样式与淡入动画 */
+html, body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    background: #000; /* 背景纯黑，衬托图片 */
+    overflow: hidden; /* 禁止滚动条，确保满屏效果 */
+}
+
+.viewport {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center; /* 让图片容器中心在屏幕中心 */
+}
+
+#hero {
+    max-width: none; /* 允许图片超出基本约束用于位移 */
+    width: 100vw;    /* 宽度铺满视口 */
+    height: 100vh;   /* 高度铺满视口 */
+    object-fit: cover; /* 保持比例裁剪，完全填充 */
+    object-position: center; /* 确保图片中心（logo在图中心）在视口中心 */
+    opacity: 0;
+    /* 使用 CSS 变量组合位移与缩放，避免 JS 覆盖动画缩放 */
+    --tx: 0px;
+    --ty: 0px;
+    --scale: 1.03; /* 初始略放大用于淡入 */
+    transform: translate(var(--tx), var(--ty)) scale(var(--scale));
+    animation: fadeIn 900ms ease-out forwards;
+    will-change: transform;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; --scale: 1.03; }
+    to   { opacity: 1; --scale: 1.0; }
+}
+
+
